@@ -1,12 +1,22 @@
 import './App.css';
-import ContactApp from './ContactApp/ContactApp';
+import ContactDetails from './Components/contactDetails';
+import {BrowserRouter as Router,Routes,Route} from "react-router-dom"
+import ContactList from './Components/contactList';
+
 
 
 function App() {
   return (
-    <div>
-      <ContactApp/>
-    </div>
+    <>
+    <Router>
+    <Routes>
+      <Route path="/ContactList" element={<ContactList/>}/>
+      <Route path="/" element={<ContactList/>}/>
+      <Route path="/ContactDetails/:id" element={<ContactDetails/>}/>
+    </Routes>
+    </Router>
+      
+    </>
   );
 }
 

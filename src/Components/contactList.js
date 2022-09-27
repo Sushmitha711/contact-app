@@ -1,16 +1,23 @@
 import React,{useEffect, useState} from 'react';
 import axios from "axios";
-import ContactDetails from './ContactDetails';
 import {Link} from "react-router-dom"
+
 
 const ContactList = () => {
     const [users ,setUsers]=useState([""])
 
-    useEffect(()=>{
+    let loadUser=()=>{
         axios.get('https://jsonplaceholder.typicode.com/users')
         .then((res)=>{setUsers(res.data)})
         .catch()
-    },[users])
+    }
+    useEffect(()=>{
+        loadUser();
+    },[])
+
+    const submitHandler=(e)=>{
+        e.preventDefault();
+    }
   
     return (
         <div>
@@ -33,7 +40,7 @@ const ContactList = () => {
                          <td>{data.name}</td>
                          <td>{data.email}</td>
                          <td>{data.phone}</td>
-                         <td><button className='btn btn-info' onClick={()=>{<Link to={ContactDetails}></Link>}} >View</button></td>
+                         <td><Link to={`ContactDetails/${data.id}`} className='btn btn-success' onSubmit={submitHandler}>View</Link> </td>
                          </tr>
                     ))}
                 </tbody>
@@ -43,3 +50,4 @@ const ContactList = () => {
 }
 
 export default ContactList;
+
